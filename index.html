@@ -4670,6 +4670,13 @@
       opacity: 1;
       transform: translateY(0);
     }
+
+    /* Ocultar overlay de texto sobre a imagem da fachada no mobile */
+    @media (max-width: 768px) {
+      .instalaciones-card-overlay {
+        display: none !important;
+      }
+    }
   </style>
 </head>
 
@@ -5606,7 +5613,7 @@
         <div style="display: grid; grid-template-columns: 1fr; gap: 2rem; align-items: center;" class="reveal-item">
           <div style="position: relative; border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-xl); border: 1px solid var(--neutral-border);">
             <img src="assets/fachada.webp" alt="Fachada física real de Autoescuela KM4 en Calle Reverend José María Pinazo 4, Benimaclet Valencia" style="width: 100%; height: auto; max-height: 520px; object-fit: cover; display: block;" loading="lazy">
-            <div style="position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(to top, rgba(11,15,23,0.92) 0%, rgba(11,15,23,0) 100%); padding: 2rem 1.5rem 1.25rem; color: #fff;">
+            <div class="instalaciones-card-overlay" style="position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(to top, rgba(11,15,23,0.92) 0%, rgba(11,15,23,0) 100%); padding: 2rem 1.5rem 1.25rem; color: #fff;">
               <span style="background: var(--brand-primary); color: #fff; font-size: 0.75rem; font-weight: 800; padding: 0.25rem 0.75rem; border-radius: 9999px; text-transform: uppercase; letter-spacing: 0.05em; display: inline-block; margin-bottom: 0.5rem;">Sede Oficial</span>
               <h3 style="font-size: 1.35rem; font-weight: 700; margin: 0 0 0.35rem; color: #fff;">Kilometro 4 · Autoescuela y Centro de Formación</h3>
               <p style="margin: 0; font-size: 0.9rem; color: rgba(255,255,255,0.85);">Carrer del Reverend José María Pinazo, 4, Benimaclet, 46020 València (Junto a paradas de Metro y Tranvía)</p>
