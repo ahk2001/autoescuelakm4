@@ -3045,6 +3045,9 @@
         width: 20px;
         height: 20px;
       }
+      .pro-glider-btn[data-filter="todos"] {
+        display: none !important;
+      }
       .pro-glider-pill {
         border-radius: 50% !important;
         height: calc(100% - 8px);
@@ -6739,15 +6742,46 @@
       }
 
       if (gliderBtns.length > 0 && gliderPill) {
-        var activeBtn = document.querySelector('.pro-glider-btn.active') || gliderBtns[0];
+        function getEffectiveActiveBtn() {
+          var isMobile = window.innerWidth <= 768;
+          var cur = document.querySelector('.pro-glider-btn.active');
+          if (isMobile) {
+            if (!cur || cur.getAttribute('data-filter') === 'todos') {
+              if (cur) {
+                cur.classList.remove('active');
+                cur.setAttribute('aria-selected', 'false');
+              }
+              var firstVisible = document.querySelector('.pro-glider-btn[data-filter="amaxofobia"]') || document.querySelector('.pro-glider-btn:not([data-filter="todos"])');
+              if (firstVisible) {
+                firstVisible.classList.add('active');
+                firstVisible.setAttribute('aria-selected', 'true');
+                return firstVisible;
+              }
+            }
+          }
+          return cur || gliderBtns[0];
+        }
+
+        var activeBtn = getEffectiveActiveBtn();
         if (activeBtn) {
           setTimeout(function () { setGliderPill(activeBtn); }, 150);
           filterProCards(activeBtn.getAttribute('data-filter'));
         }
 
         window.addEventListener('resize', function () {
-          var cur = document.querySelector('.pro-glider-btn.active');
-          if (cur) setGliderPill(cur);
+          var cur = getEffectiveActiveBtn();
+          if (cur) {
+            setGliderPill(cur);
+            if (window.innerWidth <= 768 && cur.getAttribute('data-filter') === 'todos') {
+              var amax = document.querySelector('.pro-glider-btn[data-filter="amaxofobia"]');
+              if (amax) {
+                cur.classList.remove('active');
+                amax.classList.add('active');
+                setGliderPill(amax);
+                filterProCards('amaxofobia');
+              }
+            }
+          }
         });
 
         gliderBtns.forEach(function (btn) {
